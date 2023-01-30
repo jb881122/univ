@@ -1,0 +1,38 @@
+univspl.def: univsdef.c devconst.h
+	command /c cc -EP univsdef.c>univspl.def
+
+univspl.dfo: univspl.def
+	mc univspl
+
+univ.obj: univ.c os.h winnmeth.h devspec.h devconst.h execrop.h misc.h
+	cc -d -c -Asnw -Gsw -Oas -Zpe -DIS_W1_DR5 univ.c
+
+execrop.obj: execrop.asm cmacros.inc ropdefs.blt roptable.blt
+	masm -z-t-Ml-b63 execrop;
+
+misc.obj: misc.asm cmacros.inc
+	masm -z-t-Ml-b63 misc;
+
+devspec.obj: devspec.asm cmacros.inc
+	masm -z-t-Ml-b63 devspec;
+
+univ.din: univspl.dfo univ.obj execrop.obj misc.obj devspec.obj
+	link univspl.dfo univ execrop misc devspec,univ.exe,/map/li,kernel;
+	ne -n univ
+	command /c copy univ.exe univ.din
+	command /c erase univ.exe
+
+univcur.def: univcdef.c devconst.h
+	command /c cc -EP univcdef.c>univcur.def
+
+univcur.dfo: univcur.def
+	mc univcur
+
+univcur.obj: univcur.c os.h winnmeth.h devspec.h devconst.h
+	cc -d -c -Asnw -Gsw -Oas -Zpe -DIS_W1_DR5 univcur.c
+
+univ.cin: univcur.dfo univcur.obj
+	link univcur.dfo univcur,univcur.exe,/map/li;
+	ne -n univcur
+	command /c copy univcur.exe univ.cin
+	command /c erase univcur.exe

@@ -1,0 +1,36 @@
+#define OCR_NORMAL      1
+#define OCR_IBEAM       2
+#define OCR_WAIT        3
+#define OCR_CROSS       4
+#define OCR_UPARROW     8
+#define OCR_SIZE        9
+#define OCR_ICON        10
+
+#define OIC_SAMPLE      1
+#define OIC_NOTE        2
+#define OIC_BOMB        3
+
+OCR_NORMAL      cursor  PRELOAD FIXED   IMPURE  resah\normal.cur
+OCR_IBEAM       cursor  PRELOAD FIXED   IMPURE  resah\ibeam.cur
+OCR_WAIT        cursor  PRELOAD FIXED   IMPURE  resah\wait.cur
+OCR_CROSS       cursor  PRELOAD FIXED   IMPURE  resah\cross.cur
+OCR_UPARROW     cursor  PRELOAD FIXED   IMPURE  resah\uparrow.cur
+OCR_SIZE        cursor  PRELOAD FIXED   IMPURE  resah\size.cur
+OCR_ICON        cursor  PRELOAD FIXED   IMPURE  resah\icon.cur
+
+OIC_SAMPLE      icon    PRELOAD FIXED   IMPURE  resah\sample.ico
+OIC_NOTE        icon    PRELOAD FIXED   IMPURE  resah\note.ico
+OIC_BOMB        icon    PRELOAD FIXED   IMPURE  resah\bomb.ico
+
+rgarrow         bitmap  PRELOAD FIXED   IMPURE  resah\rgarrow.bmp
+lfarrow         bitmap  PRELOAD FIXED   IMPURE  resah\lfarrow.bmp
+check           bitmap  PRELOAD FIXED   IMPURE  resah\check.bmp
+btsize          bitmap  PRELOAD FIXED   IMPURE  resah\btsize.bmp
+uparrow         bitmap  PRELOAD FIXED   IMPURE  resah\uparrow.bmp
+dnarrow         bitmap  PRELOAD FIXED   IMPURE  resah\dnarrow.bmp
+size            bitmap  PRELOAD FIXED   IMPURE  resah\size.bmp
+close           bitmap  PRELOAD FIXED   IMPURE  resah\close.bmp
+btntypes        bitmap  PRELOAD FIXED   IMPURE  resah\btntypes.bmp
+
+config          oembin  PRELOAD FIXED   IMPURE  resah\config.bin
+fonts           oembin  PRELOAD FIXED   IMPURE  resah\fonts.bin

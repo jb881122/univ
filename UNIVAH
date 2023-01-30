@@ -1,0 +1,48 @@
+univ.def: univdef.c devconst.h
+	command /c cc -EP univdef.c>univdef.tmp
+	command /c cc -EP univdef.tmp>univ.def
+	command /c erase univdef.tmp
+
+univ.obj: univ.c os.h winnmeth.h devspec.h devconst.h execrop.h misc.h
+	cc -d -c -Asnw -Gsw -Oas -Zpe -DIS_W1_ALPHA univ.c
+
+univcur.obj: univcur.c os.h winnmeth.h devspec.h devconst.h
+	cc -d -c -Asnw -Gsw -Oas -Zpe -DIS_W1_ALPHA univcur.c
+
+execrop.obj: execrop.asm cmacros.inc ropdefs.blt roptable.blt
+	masm -z-t-Ml-b63 execrop;
+
+misc.obj: misc.asm cmacros.inc
+	masm -z-t-Ml-b63 misc;
+
+devspec.obj: devspec.asm cmacros.inc
+	masm -z-t-Ml-b63 devspec;
+
+univ.nr: univ.obj univcur.obj execrop.obj misc.obj devspec.obj univ.def
+	link4x univ univcur execrop misc devspec,univ.nr,,slibw,univ.def;
+
+resah\config.obj: resah\config.asm
+	masm -z-t-b63 resah\config,resah\config;
+
+resah\config.exe: resah\config.obj
+	link resah\config,resah\config;
+
+resah\config.bin: resah\config.obj
+	exe2bin resah\config resah\config
+
+resah\fonts.obj: resah\fonts.asm
+	masm -z-t-b63 resah\fonts,resah\fonts;
+
+resah\fonts.exe: resah\fonts.obj
+	link resah\fonts,resah\fonts;
+
+resah\fonts.bin: resah\fonts.exe
+	exe2bin resah\fonts resah\fonts
+
+univ.exe: univ.nr resah\univ.rc resah\config.bin resah\normal.cur resah\ibeam.cur resah\wait.cur \
+		resah\cross.cur resah\uparrow.cur resah\size.cur resah\icon.cur resah\sample.ico \
+		resah\bomb.ico resah\note.ico resah\rgarrow.bmp resah\lfarrow.bmp resah\uparrow.bmp \
+		resah\dnarrow.bmp resah\check.bmp resah\btsize.bmp resah\size.bmp resah\close.bmp \
+		resah\btntypes.bmp resah\fonts.bin
+	command /c copy univ.nr univ.exe
+	rc resah\univ.rc univ.exe
